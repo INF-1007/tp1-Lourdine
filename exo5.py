@@ -35,10 +35,58 @@ Conseil :
 - Une solution simple consiste a tester plusieurs combinaisons de forfaits avec des boucles (bruteforce).
 """
 
-# TODO: Lire n (int) et statut (str)
 
-# TODO: Validation (n >= 0 et statut dans {O, N})
+try:
+    n = int(input("Entrez le nombre de billets necessaires : "))
+    statut = input("Entrez le statut benevole (O/N) : ")
 
-# TODO: Chercher la meilleure combinaison (A, B, C, D)
+
+    if n <0 or (statut != "N" and statut != "O"):
+        print("Erreur - donnees invalides.")
+   
+        
+    else:
+        journees_20 = 80.00
+        journees_10 = 44.00
+        journees_4 = 18.00
+        journee_1  =  5.00
+
+
+
+        meilleur=float('inf')
+        best_total = float('inf')
+        for i in range(n//20+1):
+            for j in range(n//10+1):
+                for k in range(n//4+1):
+                    for l in range(n//1+1):
+                        total_billet=(i*20)+(j*10)+(k*4)+l
+                        if total_billet >= n:
+                            prix_total= (i*journees_20)+(j*journees_10)+(k*journees_4)+(l*journee_1)
+                            if statut == "O":
+                                rabais= 0.10 * (i*journees_20)+0.10*(j*journees_10)+0.1*(k*journees_4)
+                                total_ben=prix_total-rabais
+                                prix_final=total_ben
+                            else:
+                                prix_final=prix_total
+
+                            if prix_final < meilleur or (prix_final == meilleur and total_billet < best_total) or (prix_final == meilleur and total_billet == best_total and l < best_l):
+                                meilleur = prix_final
+                                best_i = i
+                                best_j = j
+                                best_k = k
+                                best_l = l
+                                best_total = total_billet
+        print(f"Forfaits de 20 journees - {best_i}")
+        print(f"Forfaits de 10 journees - {best_j}")
+        print(f"Forfaits de 4 journees - {best_k}")
+        print(f"Billets journaliers - {best_l}")
+        print(f"Total billets - {best_total}")
+        print(f"Prix total - {meilleur:.2f}$")
+except:
+    print("Erreur - donnees invalides.")
+
 
 # TODO: Calculer et afficher le resultat exact (6 lignes)
+# TODO: Lire n (int) et statut (str)
+# TODO: Validation (n >= 0 et statut dans {O, N})
+# TODO: Chercher la meilleure combinaison (A, B, C, D)
