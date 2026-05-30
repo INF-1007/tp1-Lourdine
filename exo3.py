@@ -51,7 +51,7 @@ try:
             print("Egalite : marcher et velo.")
 
         elif metro == velo == minimum and minimum != marche:
-              print("Egalite : metro et velo.")
+              print("Egalite : velo et metro.")
 
         elif metro == marche == minimum and minimum != velo:
             print("Egalite : marcher et metro.")
