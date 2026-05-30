@@ -55,31 +55,32 @@ try:
 
         meilleur=float('inf')
         best_total = float('inf')
+        best_d = float('inf')
         for i in range(n//20+1):
             for j in range(n//10+1):
                 for k in range(n//4+1):
-                    for l in range(n//1+1):
-                        total_billet=(i*20)+(j*10)+(k*4)+l
-                        if total_billet >= n:
-                            prix_total= (i*journees_20)+(j*journees_10)+(k*journees_4)+(l*journee_1)
-                            if statut == "O":
-                                rabais= 0.10 * (i*journees_20)+0.10*(j*journees_10)+0.1*(k*journees_4)
-                                total_ben=prix_total-rabais
-                                prix_final=total_ben
-                            else:
-                                prix_final=prix_total
+                    d=max(0, n - (i*20 + j*10 + k*4))
+                    total_billet=(i*20)+(j*10)+(k*4)+d
+                    
+                    prix_total= (i*journees_20)+(j*journees_10)+(k*journees_4)+d*journee_1
+                    if statut == "O":
+                        rabais= 0.10 * (i*journees_20)+0.10*(j*journees_10)+0.1*(k*journees_4)
+                        total_ben=prix_total-rabais
+                        prix_final=total_ben
+                    else:
+                        prix_final=prix_total
 
-                            if prix_final < meilleur or (prix_final == meilleur and total_billet < best_total) or (prix_final == meilleur and total_billet == best_total and l < best_l):
-                                meilleur = prix_final
-                                best_i = i
-                                best_j = j
-                                best_k = k
-                                best_l = l
-                                best_total = total_billet
+                    if prix_final < meilleur or (prix_final == meilleur and total_billet < best_total) or (prix_final == meilleur and total_billet == best_total and d < best_d):
+                        meilleur = prix_final
+                        best_i = i
+                        best_j = j
+                        best_k = k
+                        best_d = d
+                        best_total = total_billet
         print(f"Forfaits de 20 journees - {best_i}")
         print(f"Forfaits de 10 journees - {best_j}")
         print(f"Forfaits de 4 journees - {best_k}")
-        print(f"Billets journaliers - {best_l}")
+        print(f"Billets journaliers - {best_d}")
         print(f"Total billets - {best_total}")
         print(f"Prix total - {meilleur:.2f}$")
 except:
